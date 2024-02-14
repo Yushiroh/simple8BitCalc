@@ -16,7 +16,7 @@ const int led3 = A2;
 const int led4 = A1;
 const int led5 = A0;
 
-int leds[] = {led1,led2,led3,led4,led5,ledStore1,ledStore2};
+int leds[] = {led1,led2,led3,led4,led5};
 
 void setup() {
   Serial.begin(9600);
@@ -40,21 +40,17 @@ void setup() {
 }
 
 void loop() {
+  int inputStates[] = {digitalRead(dip1), digitalRead(dip2), digitalRead(dip3), digitalRead(dip4)};
 
- for(int i = 0; i < 7; i++){
+  for(int ledPos = 0; ledPos < 4; ledPos++){
 
-  digitalWrite(leds[i], HIGH);
-  delay(500);
-  digitalWrite(leds[i], LOW);
-  
- }
+    if(inputStates[ledPos] == 1){
+      digitalWrite(leds[ledPos], HIGH);
+    }else{
+      digitalWrite(leds[ledPos], LOW);
+    }
+  }
 
-  Serial.print(digitalRead(dip1));
-  Serial.print(digitalRead(dip2));
-  Serial.print(digitalRead(dip3));
-  Serial.println(digitalRead(dip4));
-
-  Serial.print("Store Button State: ");
-  Serial.println(digitalRead(storeBut));
 }
+
 
