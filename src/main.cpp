@@ -16,7 +16,7 @@ const int led3 = A2;
 const int led4 = A1;
 const int led5 = A0;
 
-int leds[] = {led1,led2,led3,led4,led5};
+int leds[] = {led5,led4,led3,led2,led1};
 
 void setup() {
   Serial.begin(9600);
@@ -40,8 +40,9 @@ void setup() {
 }
 
 void loop() {
+  
   int inputStates[] = {digitalRead(dip1), digitalRead(dip2), digitalRead(dip3), digitalRead(dip4)};
-
+  
   for(int ledPos = 0; ledPos < 4; ledPos++){
 
     if(inputStates[ledPos] == 1){
