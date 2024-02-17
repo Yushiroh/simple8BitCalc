@@ -78,7 +78,7 @@ void loop() {
       var2[3] = inputStates[3];
       
       var2State = true;
-      digitalWrite(ledStore1, HIGH);
+      digitalWrite(ledStore2, HIGH);
 
     }
 
@@ -91,9 +91,6 @@ void loop() {
         digitalWrite(leds[ledPos], LOW);
       }
    }
-
-   digitalWrite(ledStore1, LOW);
-   digitalWrite(ledStore2, LOW);
 
   }
 
