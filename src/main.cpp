@@ -23,6 +23,9 @@ int bitArray[4];
 int var1[4];
 int var2[4];
 
+bool var1State = false;
+bool var2State = false;
+
 int progState = 0;
 
 void setup() {
@@ -56,30 +59,67 @@ void loop() {
   Serial.println(progState);
 
   if(buttonState == 1){
-    progState++;
-  }
+   
+    if(var1State == false && var2State == false){
 
-  if(progState == 1){
-    digitalWrite(ledStore1, HIGH);
-    var1[0] = inputStates[0];
-    var1[1] = inputStates[1];
-    var1[2] = inputStates[2];
-    var1[3] = inputStates[3];
+      var1[0] = inputStates[0];
+      var1[1] = inputStates[1];
+      var1[2] = inputStates[2];
+      var1[3] = inputStates[3];
+      
+      var1State = true;
+      digitalWrite(ledStore1, HIGH);
 
-  }else if(progState == 2){
-    digitalWrite(ledStore2, HIGH);
-    var2[0] = inputStates[0];
-    var2[1] = inputStates[1];
-    var2[2] = inputStates[2];
-    var2[3] = inputStates[3];
+    }else if(var1State == true && var2State == false){
 
-  }else if(progState == 3){
-    progState = 0;
+      var2[0] = inputStates[0];
+      var2[1] = inputStates[1];
+      var2[2] = inputStates[2];
+      var2[3] = inputStates[3];
+      
+      var2State = true;
+      digitalWrite(ledStore1, HIGH);
+
+    }
 
   }else{
-    digitalWrite(ledStore1, LOW);
-    digitalWrite(ledStore2, LOW);
+    
+    for(int ledPos = 0; ledPos < 4; ledPos++){
+      if(inputStates[ledPos] == 1){
+        digitalWrite(leds[ledPos], HIGH);
+      }else{
+        digitalWrite(leds[ledPos], LOW);
+      }
+   }
+
+   digitalWrite(ledStore1, LOW);
+   digitalWrite(ledStore2, LOW);
+
   }
+
+
+
+  // if(progState == 1){
+  //   digitalWrite(ledStore1, HIGH);
+  //   var1[0] = inputStates[0];
+  //   var1[1] = inputStates[1];
+  //   var1[2] = inputStates[2];
+  //   var1[3] = inputStates[3];
+
+  // }else if(progState == 2){
+  //   digitalWrite(ledStore2, HIGH);
+  //   var2[0] = inputStates[0];
+  //   var2[1] = inputStates[1];
+  //   var2[2] = inputStates[2];
+  //   var2[3] = inputStates[3];
+
+  // }else if(progState == 3){
+  //   progState = 0;
+
+  // }else{
+  //   digitalWrite(ledStore1, LOW);
+  //   digitalWrite(ledStore2, LOW);
+  // }
 
   Serial.print("var 1 value: ");
   Serial.print(var1[0]);
@@ -93,14 +133,7 @@ void loop() {
   Serial.print(var2[2]);
   Serial.println(var2[3]);
 
-  for(int ledPos = 0; ledPos < 4; ledPos++){
 
-    if(inputStates[ledPos] == 1){
-      digitalWrite(leds[ledPos], HIGH);
-    }else{
-      digitalWrite(leds[ledPos], LOW);
-    }
-  }
 
 
 }
