@@ -52,7 +52,7 @@ void loop() {
   
   int buttonState = digitalRead(storeBut);
   delay(200);
-
+  Serial.print("Program State: ");
   Serial.println(progState);
 
   if(buttonState == 1){
@@ -62,14 +62,20 @@ void loop() {
   if(progState == 1){
     digitalWrite(ledStore1, HIGH);
     var1[0] = inputStates[0];
-    var1[1] = inputStates[0];
-    var1[2] = inputStates[0];
-    var1[3] = inputStates[0];
+    var1[1] = inputStates[1];
+    var1[2] = inputStates[2];
+    var1[3] = inputStates[3];
 
   }else if(progState == 2){
     digitalWrite(ledStore2, HIGH);
+    var2[0] = inputStates[0];
+    var2[1] = inputStates[1];
+    var2[2] = inputStates[2];
+    var2[3] = inputStates[3];
+
   }else if(progState == 3){
     progState = 0;
+
   }else{
     digitalWrite(ledStore1, LOW);
     digitalWrite(ledStore2, LOW);
@@ -80,6 +86,12 @@ void loop() {
   Serial.print(var1[1]);
   Serial.print(var1[2]);
   Serial.println(var1[3]);
+
+  Serial.print("var 2 value: ");
+  Serial.print(var2[0]);
+  Serial.print(var2[1]);
+  Serial.print(var2[2]);
+  Serial.println(var2[3]);
 
   for(int ledPos = 0; ledPos < 4; ledPos++){
 
