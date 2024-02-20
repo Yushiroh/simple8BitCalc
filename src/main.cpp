@@ -1,5 +1,8 @@
 #include <Arduino.h>
 
+//alpha code
+
+
 const int ledStore1 = 7;
 const int ledStore2 = 8;
 
@@ -92,12 +95,7 @@ void loop() {
       var1State = false;
       var2State = false;
 
-      for (size_t i = 0; i < 4; i++)
-      {
-        varA[i+1] = var1[i];
-        varB[i+1] = var2[i];
-        ans[i] = 0;
-      }
+
       
 
       for (int i = 4; i > -1; i--){
@@ -171,6 +169,13 @@ void loop() {
         
 
       } 
+
+      for (size_t i = 0; i < 4; i++)
+      {
+        varA[i+1] = var1[i];
+        varB[i+1] = var2[i];
+        ans[i] = 0;
+      }      
 
       delay(10000);
     }
