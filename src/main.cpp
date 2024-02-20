@@ -56,7 +56,7 @@ void setup() {
 
 }
 
-void loop() {
+void loop(){
 
   int inputStates[] = {digitalRead(dip1), digitalRead(dip2), digitalRead(dip3), digitalRead(dip4)};
   
@@ -95,7 +95,30 @@ void loop() {
       var1State = false;
       var2State = false;
 
+      for (size_t i = 0; i < 4; i++)
+      {
+        varA[i+1] = var1[i];
+        varB[i+1] = var2[i];
+        ans[i] = 0;
+      } 
+      
+      for (size_t i = 0; i < 5; i++)
+      {
+        Serial.print("Value of VarA ");
+        Serial.print(varA[i]);
+        Serial.print(" - in index: ");
+        Serial.println(i);
+      }
 
+      Serial.println("---------");
+
+      for (size_t i = 0; i < 5; i++)
+      {
+        Serial.print("Value of VarB ");
+        Serial.print(varB[i]);
+        Serial.print(" - in index: ");
+        Serial.println(i);
+      }
       
 
       for (int i = 4; i > -1; i--){
@@ -156,39 +179,39 @@ void loop() {
         Serial.print(ans[i]);
         Serial.print(" - carry: ");
         Serial.println(carry[i]);  
-
-
+       
         for(int ledPos = 0; ledPos < 4; ledPos++){
+
           if(ans[ledPos] == 1){
             digitalWrite(leds[ledPos], HIGH);
           }else{
             digitalWrite(leds[ledPos], LOW);
           }
-        }
 
-        
+        } 
 
-      } 
-
-      for (size_t i = 0; i < 4; i++)
+      }
+      
+      for (size_t i = 0; i < 5; i++)
       {
-        varA[i+1] = var1[i];
-        varB[i+1] = var2[i];
-        ans[i] = 0;
-      }      
+        varA[i] = 0;
+      }
+       
 
       delay(10000);
     }
 
   }else{
     
+    digitalWrite(leds[0], LOW);
+
     for(int ledPos = 0; ledPos < 4; ledPos++){
       if(inputStates[ledPos] == 1){
         digitalWrite(leds[ledPos+1], HIGH);
       }else{
         digitalWrite(leds[ledPos+1], LOW);
       }
-   }
+    }
 
 
 
