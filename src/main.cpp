@@ -19,9 +19,13 @@ const int led5 = A0;
 int leds[] = {led5,led4,led3,led2,led1};
 
 int bitArray[4];
-
 int var1[4];
 int var2[4];
+
+int ans[5] =   {0,0,0,0,0};
+int carry[5] = {0,0,0,0,0};
+int varA[5] =  {0,0,0,0,0};
+int varB[5] =  {0,0,0,0,0};
 
 bool var1State = false;
 bool var2State = false;
@@ -80,15 +84,104 @@ void loop() {
       var2State = true;
       digitalWrite(ledStore2, HIGH);
 
+    }else if(var1State && var2State == true){
+
+      digitalWrite(ledStore1, LOW);
+      digitalWrite(ledStore2, LOW);
+
+      var1State = false;
+      var2State = false;
+
+      for (size_t i = 0; i < 4; i++)
+      {
+        varA[i+1] = var1[i];
+        varB[i+1] = var2[i];
+        ans[i] = 0;
+      }
+      
+
+      for (int i = 4; i > -1; i--){
+
+        if(carry[i] == 1){
+
+            if((carry[i] ^ varA[i]) == 1){
+
+              varA[i] = 1;
+
+            }else if(carry[i] && varA[i] == 1){
+
+              carry[i-1] = 1;
+              varA[i] = 0;
+
+            }else{
+
+              varA[i] = 0;
+
+            }
+
+            if((varA[i] ^ varB[i]) == 1){
+
+              ans[i] = 1;
+
+            }else if(varA[i] && varB[i] == 1){
+
+              carry[i-1] = 1;
+              ans[i] = 0;
+
+            }else{
+
+              ans[i] = 0;
+              
+            }
+
+        }else{
+
+            if((varA[i] ^ varB[i]) == 1){
+
+              ans[i] = 1;
+
+            }else if(varA[i] && varB[i] == 1){
+
+              carry[i-1] = 1;
+              ans[i] = 0;
+
+            }else{
+
+              ans[i] = 0;
+              
+            }
+        }
+
+        Serial.print("ans for index ");
+        Serial.print(i);
+        Serial.print(":");
+        Serial.print(ans[i]);
+        Serial.print(" - carry: ");
+        Serial.println(carry[i]);  
+
+
+        for(int ledPos = 0; ledPos < 4; ledPos++){
+          if(ans[ledPos] == 1){
+            digitalWrite(leds[ledPos], HIGH);
+          }else{
+            digitalWrite(leds[ledPos], LOW);
+          }
+        }
+
+        
+
+      } 
+
+      delay(10000);
     }
 
   }else{
     
     for(int ledPos = 0; ledPos < 4; ledPos++){
       if(inputStates[ledPos] == 1){
-        digitalWrite(leds[ledPos], HIGH);
+        digitalWrite(leds[ledPos+1], HIGH);
       }else{
-        digitalWrite(leds[ledPos], LOW);
+        digitalWrite(leds[ledPos+1], LOW);
       }
    }
 
