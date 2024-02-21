@@ -180,12 +180,19 @@ void loop(){
         Serial.print(" - carry: ");
         Serial.println(carry[i]);  
        
-        for(int ledPos = 0; ledPos < 4; ledPos++){
+        for(int ledPos = 0; ledPos < 5; ledPos++){
+          
+          Serial.print("Index: ");
+          Serial.print(ledPos);
 
           if(ans[ledPos] == 1){
             digitalWrite(leds[ledPos], HIGH);
+            Serial.print("led on:");
+            Serial.println(leds[ledPos]);
           }else{
             digitalWrite(leds[ledPos], LOW);
+            Serial.print("led off:");
+            Serial.println(leds[ledPos]);
           }
 
         } 
@@ -195,6 +202,7 @@ void loop(){
       for (size_t i = 0; i < 5; i++)
       {
         varA[i] = 0;
+        carry[i] = 0;
       }
        
 
