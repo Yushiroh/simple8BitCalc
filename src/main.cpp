@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
-//alpha code wa
+//final code version
+//still has debugging feature for serial monitor
 
 
 const int ledStore1 = 7;
